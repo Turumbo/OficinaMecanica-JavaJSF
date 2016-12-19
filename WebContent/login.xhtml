@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet name="style.css" library="css" />
+	<title>Sistema de Notas Fiscais</title>
+</h:head>
+
+<h:body>
+	<div id="cabecalho">
+		<h1><a href="login.xhtml" id="logo">Sistema de Notas Fiscais</a></h1>
+	</div>
+	
+	<div id="conteudo">
+		<h:form id="login">
+			<fieldset>
+				<legend>Login</legend>
+				
+				<p:messages id="messages" />
+				
+				<h:outputLabel for="nomeUsuario" value="Nome Usuário:" />
+				<p:inputText id="nomeUsuario" value="#{loginMB.usuario.nomeUsuario}" />
+	
+				<h:outputLabel for="senha" value="Senha:" />
+				<p:password id="senha" value="#{loginMB.usuario.senha}" />
+	
+				<h:commandButton value="Enviar" icon="ui-icon-star" action="#{loginMB.envia}"/>	
+			</fieldset>
+		</h:form>
+	</div>
+	
+	<div id="rodape">
+		<h:outputText value="Sistema de Notas Fiscais"/>
+	</div>
+</h:body>
+</html>
