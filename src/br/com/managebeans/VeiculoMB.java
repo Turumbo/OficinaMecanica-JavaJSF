@@ -23,6 +23,20 @@ public class VeiculoMB{
 		this.veiculo = veiculo;
 	}
 	
+	public String getNomePorId(Long idVeiculo){
+		if (veiculos==null){
+			DAO<Veiculo> dao = new DAO<Veiculo>(Veiculo.class);
+			veiculos = dao.listaTodos();
+		}
+		for(Veiculo v : veiculos){
+			if(v.getIdVeiculo() == idVeiculo){
+				return v.getModelo();
+			}
+		}
+		
+		return "";
+	}
+	
 	public void grava(){
 		DAO<Veiculo> dao = new DAO<Veiculo>(Veiculo.class);
 		

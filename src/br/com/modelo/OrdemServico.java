@@ -21,14 +21,14 @@ public class OrdemServico {
 	private Long idVeiculo;
 	
 	@Temporal(TemporalType.DATE)
-	private Calendar dataOrcamento;
+	private Calendar dataOrcamento = Calendar.getInstance();
 	
 	@Temporal(TemporalType.DATE)
 	private Calendar dataServico;
 	
 	private String servico;
 	private Float valor;
-	private String status;
+	private String status = "Criada";
 	
 	public Long getIdOs() {
 		return idOs;
