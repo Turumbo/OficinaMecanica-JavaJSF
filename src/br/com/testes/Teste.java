@@ -1,5 +1,7 @@
 package br.com.testes;
 
+import br.com.managebeans.ClienteMB;
+
 public class Teste {
 	public static void main(String[] args) {
 		/*Cliente c = new Cliente();
@@ -12,6 +14,8 @@ public class Teste {
 	
 		
 		new DAO<Cliente>(Cliente.class).adiciona(c);		*/
+		ClienteMB a = new ClienteMB();
+		System.out.println(a.getNomePorId(14L));
 		
 	}
 }

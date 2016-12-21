@@ -1,18 +1,21 @@
 package br.com.modelo;
 
 import java.util.Calendar;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 public class OrdemServico {
-	/*OrdemServico (idos, #veiculo, data_orcamento, data_servico, serviço, valor, status) */
+	/*OrdemServico (idos, #veiculo, data_orcamento, data_servico, serviço, valor, status, itens) */
 	
 	@Id
 	@SequenceGenerator(name="os_id", sequenceName="os_seq", allocationSize=1)
@@ -29,6 +32,9 @@ public class OrdemServico {
 	private String servico;
 	private Float valor;
 	private String status = "Criada";
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="ordemServico")
+	private Collection<Item> itens;
 	
 	public Long getIdOs() {
 		return idOs;
@@ -71,5 +77,11 @@ public class OrdemServico {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public Collection<Item> getItens() {
+		return itens;
+	}
+	public void setItens(Collection<Item> itens) {
+		this.itens = itens;
 	}
 }

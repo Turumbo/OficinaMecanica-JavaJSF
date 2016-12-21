@@ -17,8 +17,8 @@ public class Veiculo {
 	private String marca;
 	private String modelo;
 	private String placa;
-	private int anoFabricacao;
-	private int anoModelo;
+	private Integer anoFabricacao;
+	private Integer anoModelo;
 	private Long idCliente;
 	
 	public Long getIdVeiculo() {
@@ -45,16 +45,16 @@ public class Veiculo {
 	public void setPlaca(String placa) {
 		this.placa = placa;
 	}
-	public int getAnoFabricacao() {
+	public Integer getAnoFabricacao() {
 		return anoFabricacao;
 	}
-	public void setAnoFabricacao(int anoFabricacao) {
+	public void setAnoFabricacao(Integer anoFabricacao) {
 		this.anoFabricacao = anoFabricacao;
 	}
-	public int getAnoModelo() {
+	public Integer getAnoModelo() {
 		return anoModelo;
 	}
-	public void setAnoModelo(int anoModelo) {
+	public void setAnoModelo(Integer anoModelo) {
 		this.anoModelo = anoModelo;
 	}
 	public Long getIdCliente() {

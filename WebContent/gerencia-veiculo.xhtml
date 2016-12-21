@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet name="style.css" library="css"/>
+	<h:outputScript name="jsf.js" library="javax.faces" target="head"/>
+	<title>Gerencia Veículo</title>
+</h:head>
+
+<h:body>
+	<div id="cabecalho">
+		<h1><a href="cliente.xhtml" id="logo">Oficina Mecânica</a></h1>
+	</div>
+	
+	<div id="conteudo">
+		<h:form id="cadastro">
+			<fieldset>			
+				<h2><h:outputText value="#{empty veiculoMB.veiculo.placa ? 'Cadastro' : 'Alteração'}"/></h2>
+				
+				<!-- Veiculo (idveiculo, marca, modelo, placa, ano_fabricacao, ano_modelo, #cliente) -->
+				
+				<h:outputLabel value="Modelo" for="modelo"/>
+				<p:inputText id="modelo" value="#{veiculoMB.veiculo.modelo}"/>
+				
+				<h:outputLabel value="Marca" for="marca"/>
+				<p:inputText id="marca" value="#{veiculoMB.veiculo.marca}"/>
+				
+				<h:outputLabel value="Placa" for="placaVeiculo"/>
+				<p:inputMask id="placaVeiculo" value="#{veiculoMB.veiculo.placa}" mask="aaa-9999"/>
+				
+				<h:outputLabel value="Ano de Fabricação" for="anoFabricacao"/>
+				<p:inputText id="anoFabricacao" value="#{veiculoMB.veiculo.anoFabricacao}"/>
+				
+				<h:outputLabel value="Ano do Modelo" for="anoModelo"/>
+				<p:inputText id="anoModelo" value="#{veiculoMB.veiculo.anoModelo}"/>
+				
+				<h:outputLabel value="Cliente" for="cliente"/>
+				<p:selectOneMenu  id="cliente" value="#{veiculoMB.veiculo.idCliente}" filter="true" filterMatchMode="startsWith">
+					<f:selectItems value="#{clienteMB.clientes}" var="cliente" itemValue="#{cliente.idCliente}" itemLabel="#{cliente.nome}"/>
+				</p:selectOneMenu>
+				
+				<div style="margin-top: 13px;">
+					<h:commandButton value="Gravar" action="#{veiculoMB.grava}" style="float: left; margin-right: 10px;">	
+						<f:ajax execute="@form" render=":cadastro :lista"/>
+					</h:commandButton>	
+		
+					<h:commandButton value="Cancelar"  rendered="#{not empty veiculoMB.veiculo.placa}" action="#{veiculoMB.cancela}">
+						<f:ajax render=":cadastro"/>
+					</h:commandButton>
+				</div>
+			</fieldset>
+		</h:form>
+		
+		<h:form id="lista">
+			<p:dataTable value="#{veiculoMB.veiculos}"  var="veiculo" styleClass="dados" rowClasses="impar, par" rows="4" paginator="true">
+								 
+				<p:column headerText="Marca">
+					#{veiculo.marca}
+				</p:column>
+				
+				<p:column headerText="Modelo">
+					#{veiculo.modelo}
+				</p:column>
+				
+				<p:column headerText="Placa do veículo" style="width: 70px;">
+					#{veiculo.placa}
+				</p:column>
+				
+				<p:column headerText="Ano de fabricação" style="width: 70px; text-align: center;">
+					#{veiculo.anoFabricacao}
+				</p:column>
+				
+				<p:column headerText="Ano do modelo" style="width: 70px; text-align: center;">
+					#{veiculo.anoModelo}
+				</p:column>
+				
+				<p:column headerText="Cliente" >
+					#{clienteMB.getNomePorId(veiculo.idCliente)}
+				</p:column>
+				
+				<p:column headerText="Ações permitidas" style="text-align: center;">
+					<h:commandLink value="Alterar" styleClass="btn">
+						<f:setPropertyActionListener value="#{veiculo}" target="#{veiculoMB.veiculo}" />
+						<f:ajax render=":cadastro"/>
+					</h:commandLink>
+					
+					<h:commandLink action="#{veiculoMB.remove(veiculo)}" value="Remover" styleClass="btn btn-danger">
+						<f:ajax render=":lista"/>
+					</h:commandLink>
+				</p:column>
+	
+			</p:dataTable>
+		</h:form>
+		
+	</div>
+	
+	<div id="rodape">
+		<h:outputText value="Sistema de Notas Fiscais"/>
+	</div>
+
+</h:body>
+</html>

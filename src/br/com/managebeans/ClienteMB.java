@@ -23,6 +23,19 @@ public class ClienteMB{
 		this.cliente = cliente;
 	}
 	
+	public String getNomePorId(Long idCliente){
+		if (clientes==null){
+			DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
+			clientes = dao.listaTodos();
+		}
+		for(Cliente c : clientes){
+			if(c.getIdCliente() == idCliente){
+				return c.getNome();
+			}
+		}
+		return "";
+	}
+	
 	public void grava(){
 		DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
 		

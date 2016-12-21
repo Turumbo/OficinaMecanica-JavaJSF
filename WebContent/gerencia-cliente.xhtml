@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet name="style.css" library="css"/>
+	<h:outputScript name="jsf.js" library="javax.faces" target="head"/>
+	<title>Gerencia Cliente</title>
+</h:head>
+
+<h:body>
+	<div id="cabecalho">
+		<h1><a href="cliente.xhtml" id="logo">Oficina Mecânica</a></h1>
+	</div>
+	
+	<div id="conteudo">
+		<h:form id="cadastro">
+			<fieldset>
+				<h2><h:outputText value="#{empty clienteMB.cliente.nome ? 'Cadastro' : 'Alteração'}"/></h2>
+				
+				<!-- Cliente (idcliente, nome, telefone, placa do veículo, CPF, endereço, email) -->
+				
+				<h:outputLabel value="Nome" for="nome"/>
+				<p:inputText id="nome" value="#{clienteMB.cliente.nome}"/>
+				
+				<h:outputLabel value="Telefone" for="telefone"/>
+				<p:inputMask id="telefone" value="#{clienteMB.cliente.telefone}" mask="(999) 9999-9999"/>
+				
+				<h:outputLabel value="Placa do veículo" for="placaVeiculo"/>
+				<p:inputMask id="placaVeiculo" value="#{clienteMB.cliente.placaVeiculo}" mask="aaa-9999"/>
+				
+				<h:outputLabel value="CPF" for="cpf"/>
+				<p:inputMask id="cpf" value="#{clienteMB.cliente.cpf}" mask="999.999.999-99"/>
+				
+				<h:outputLabel value="Endereço" for="endereco"/>
+				<p:inputText id="endereco" value="#{clienteMB.cliente.endereco}"/>
+				
+				<h:outputLabel value="Email" for="email"/>
+				<p:inputText id="email" required="true" value="#{clienteMB.cliente.email}">
+					  <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				</p:inputText>
+				
+				<div style="margin-top: 13px;">
+					<h:commandButton value="Gravar" action="#{clienteMB.grava}" style="float: left; margin-right: 10px;">	
+						<f:ajax execute="@form" render=":cadastro :lista"/>
+					</h:commandButton>	
+					
+					<h:commandButton value="Cancelar"  rendered="#{not empty clienteMB.cliente.nome}" action="#{clienteMB.cancela}">
+						<f:ajax render=":cadastro"/>
+					</h:commandButton>
+				</div>
+			</fieldset>
+		</h:form>
+	
+		<h:form id="lista">
+			<p:dataTable value="#{clienteMB.clientes}"  var="cli" styleClass="dados" rowClasses="impar, par" rows="4" paginator="true">
+								 
+				<p:column headerText="Nome">
+					#{cli.nome}
+				</p:column>
+				
+				<p:column headerText="Telefone">
+					#{cli.telefone}
+				</p:column>
+				
+				<p:column headerText="Placa do veículo" style="width: 70px;">
+					#{cli.placaVeiculo}
+				</p:column>
+				
+				<p:column headerText="CPF">
+					#{cli.cpf}
+				</p:column>
+				
+				<p:column headerText="Endereço">
+					#{cli.endereco}
+				</p:column>
+				
+				<p:column headerText="Email" >
+					#{cli.email}
+				</p:column>
+				
+				<p:column headerText="Ações permitidas" style="text-align: center;">
+					<h:commandLink value="Alterar" styleClass="btn">
+						<f:setPropertyActionListener value="#{cli}" target="#{clienteMB.cliente}" />
+						<f:ajax render=":cadastro"/>
+					</h:commandLink>
+					
+					<h:commandLink action="#{clienteMB.remove(cli)}" value="Remover" styleClass="btn btn-danger">
+						<f:ajax render=":lista"/>
+					</h:commandLink>
+				</p:column>
+	
+			</p:dataTable>
+		</h:form>
+			
+				
+	</div>
+	
+	<div id="rodape">
+		<h:outputText value="Sistema de Notas Fiscais"/>
+	</div>
+
+</h:body>
+</html>

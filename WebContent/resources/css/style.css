@@ -136,7 +136,7 @@ td.Muito.Baixa, td.Muito.Baixo {
 
 /* miolo */
 #conteudo, section {
-	width:900px;
+	width: 900px;
 	height:auto;
 	position:relative;
 	padding:10px 0px;
@@ -299,6 +299,7 @@ table.dados tr th{
 
 table.dados tr td{
 	padding:5px 10px;
+	
 }
 
 .campos tbody tr td {
