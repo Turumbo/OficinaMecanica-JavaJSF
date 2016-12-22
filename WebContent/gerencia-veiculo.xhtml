@@ -40,7 +40,7 @@
 				<p:inputText id="anoModelo" value="#{veiculoMB.veiculo.anoModelo}"/>
 				
 				<h:outputLabel value="Cliente" for="cliente"/>
-				<p:selectOneMenu  id="cliente" value="#{veiculoMB.veiculo.idCliente}" filter="true" filterMatchMode="startsWith">
+				<p:selectOneMenu  id="cliente" value="#{veiculoMB.veiculo.cliente.idCliente}" filter="true" filterMatchMode="startsWith">
 					<f:selectItems value="#{clienteMB.clientes}" var="cliente" itemValue="#{cliente.idCliente}" itemLabel="#{cliente.nome}"/>
 				</p:selectOneMenu>
 				
@@ -80,7 +80,7 @@
 				</p:column>
 				
 				<p:column headerText="Cliente" >
-					#{clienteMB.getNomePorId(veiculo.idCliente)}
+					#{veiculo.cliente.nome}
 				</p:column>
 				
 				<p:column headerText="Ações permitidas" style="text-align: center;">

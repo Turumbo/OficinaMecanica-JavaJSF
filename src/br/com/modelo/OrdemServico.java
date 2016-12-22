@@ -1,5 +1,6 @@
 package br.com.modelo;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,7 +23,9 @@ public class OrdemServico {
 	@SequenceGenerator(name="os_id", sequenceName="os_seq", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="os_id")
 	private Long idOs;
-	private Long idVeiculo;
+	
+	@OneToOne
+	private Veiculo veiculo = new Veiculo();
 	
 	@Temporal(TemporalType.DATE)
 	private Calendar dataOrcamento = Calendar.getInstance();
@@ -34,19 +38,13 @@ public class OrdemServico {
 	private String status = "Criada";
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="ordemServico")
-	private Collection<Item> itens;
+	private Collection<Item> itens = new ArrayList<>();
 	
 	public Long getIdOs() {
 		return idOs;
 	}
 	public void setIdOs(Long idOs) {
 		this.idOs = idOs;
-	}
-	public Long getIdVeiculo() {
-		return idVeiculo;
-	}
-	public void setIdVeiculo(Long idVeiculo) {
-		this.idVeiculo = idVeiculo;
 	}
 	public Calendar getDataOrcamento() {
 		return dataOrcamento;
@@ -83,5 +81,11 @@ public class OrdemServico {
 	}
 	public void setItens(Collection<Item> itens) {
 		this.itens = itens;
+	}
+	public Veiculo getVeiculo() {
+		return veiculo;
+	}
+	public void setVeiculo(Veiculo veiculo) {
+		this.veiculo = veiculo;
 	}
 }

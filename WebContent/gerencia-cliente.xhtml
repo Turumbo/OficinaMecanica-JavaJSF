@@ -30,9 +30,6 @@
 				<h:outputLabel value="Telefone" for="telefone"/>
 				<p:inputMask id="telefone" value="#{clienteMB.cliente.telefone}" mask="(999) 9999-9999"/>
 				
-				<h:outputLabel value="Placa do veículo" for="placaVeiculo"/>
-				<p:inputMask id="placaVeiculo" value="#{clienteMB.cliente.placaVeiculo}" mask="aaa-9999"/>
-				
 				<h:outputLabel value="CPF" for="cpf"/>
 				<p:inputMask id="cpf" value="#{clienteMB.cliente.cpf}" mask="999.999.999-99"/>
 				
@@ -65,10 +62,6 @@
 				
 				<p:column headerText="Telefone">
 					#{cli.telefone}
-				</p:column>
-				
-				<p:column headerText="Placa do veículo" style="width: 70px;">
-					#{cli.placaVeiculo}
 				</p:column>
 				
 				<p:column headerText="CPF">

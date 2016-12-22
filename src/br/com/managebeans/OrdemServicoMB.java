@@ -1,19 +1,26 @@
 package br.com.managebeans;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.dao.DAO;
+import br.com.modelo.Item;
 import br.com.modelo.OrdemServico;
+import br.com.modelo.Peca;
 
 @ManagedBean
 @ViewScoped
-public class OrdemServicoMB{
+public class OrdemServicoMB implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	private Item item = new Item();
 	private OrdemServico ordemServico = new OrdemServico();
 	private List<OrdemServico> ordensServico;
+	
+	private Long idPeca = new Long(0);
 	
 	public OrdemServico getOrdemServico() {
 		return ordemServico;
@@ -34,6 +41,7 @@ public class OrdemServicoMB{
 		
 		this.ordemServico = new OrdemServico();
 		this.ordensServico = dao.listaTodos();
+		
 	}
 	
 	public void aprova(OrdemServico os){
@@ -44,6 +52,15 @@ public class OrdemServicoMB{
 		this.ordensServico = dao.listaTodos();
 	}
 	
+	
+	public Long getIdPeca() {
+		return idPeca;
+	}
+
+	public void setIdPeca(Long idPeca) {
+		this.idPeca = idPeca;
+	}
+
 	public void cancela(){
 		this.ordemServico = new OrdemServico();
 	}
@@ -66,5 +83,21 @@ public class OrdemServicoMB{
 	public void setOrdensServico(List<OrdemServico> ordensServico) {
 		this.ordensServico = ordensServico;
 	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
+	}
 	
+	public void guardaPeca(){
+		DAO<Peca> dao = new DAO<>(Peca.class);
+		Peca peca = dao.buscaPorld(idPeca);
+		item.setPeca(peca);
+		item.setOrdemServico(ordemServico);
+		this.ordemServico.getItens().add(item);
+		item = new Item();
+	}
 }

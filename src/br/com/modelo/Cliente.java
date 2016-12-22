@@ -16,10 +16,12 @@ public class Cliente {
 	private Long idCliente;
 	private String nome;
 	private String telefone;
-	private String placaVeiculo;
 	private String cpf;
 	private String endereco;
 	private String email;
+	
+	/*@OneToMany(mappedBy = "cliente")
+	private Collection<Veiculo> veiculos;*/
 	
 	public Long getIdCliente() {
 		return idCliente;
@@ -38,12 +40,6 @@ public class Cliente {
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-	public String getPlacaVeiculo() {
-		return placaVeiculo;
-	}
-	public void setPlacaVeiculo(String placaVeiculo) {
-		this.placaVeiculo = placaVeiculo;
 	}
 	public String getCpf() {
 		return cpf;

@@ -48,4 +48,9 @@ public class DAO<T> {
 
 		return lista;
 	}
+	
+	public T buscaPorld(Long id) {
+		EntityManager em = new JPAUtil().getEntityManager();
+		return (T) em.find(classe, id);
+	}
 }

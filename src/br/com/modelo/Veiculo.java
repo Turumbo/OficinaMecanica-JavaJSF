@@ -1,9 +1,11 @@
 package br.com.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -19,7 +21,12 @@ public class Veiculo {
 	private String placa;
 	private Integer anoFabricacao;
 	private Integer anoModelo;
-	private Long idCliente;
+	
+	/*@OneToOne(mappedBy="veiculo")
+	private OrdemServico ordemServico;*/
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Cliente cliente;
 	
 	public Long getIdVeiculo() {
 		return idVeiculo;
@@ -57,10 +64,10 @@ public class Veiculo {
 	public void setAnoModelo(Integer anoModelo) {
 		this.anoModelo = anoModelo;
 	}
-	public Long getIdCliente() {
-		return idCliente;
+	public Cliente getCliente() {
+		return cliente;
 	}
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 }
