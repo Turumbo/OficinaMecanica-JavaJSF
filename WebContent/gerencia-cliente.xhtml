@@ -20,7 +20,7 @@
 	<div id="conteudo">
 		<h:form id="cadastro">
 			<fieldset>
-				<h2><h:outputText value="#{empty clienteMB.cliente.nome ? 'Cadastro' : 'Alteração'}"/></h2>
+				<h2><h:outputText value="#{clienteMB.cliente.idCliente == null ? 'Cadastro' : 'Alteração'}"/></h2>
 				
 				<!-- Cliente (idcliente, nome, telefone, placa do veículo, CPF, endereço, email) -->
 				

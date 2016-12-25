@@ -22,7 +22,7 @@
 			<fieldset>
 				<legend>Peça</legend>
 			
-				<h2><h:outputText value="#{empty pecaMB.peca.nome ? 'Cadastro' : 'Alteração'}"/></h2>
+				<h2><h:outputText value="#{pecaMB.peca.idPeca == null ? 'Cadastro' : 'Alteração'}"/></h2>
 				
 				<!-- Peca (idpeca, nome, fornecedor, tipo, marca, quantidade) -->
 				
@@ -85,7 +85,6 @@
 	
 			</p:dataTable>
 		</h:form>
-		
 	</div>
 	
 	<div id="rodape">

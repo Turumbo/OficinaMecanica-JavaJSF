@@ -2,10 +2,11 @@ package br.com.modelo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,8 +38,8 @@ public class OrdemServico {
 	private Float valor;
 	private String status = "Criada";
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="ordemServico")
-	private Collection<Item> itens = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="ordemServico", fetch = FetchType.EAGER)
+	private List<Item> itens = new ArrayList<>();
 	
 	public Long getIdOs() {
 		return idOs;
@@ -76,10 +77,10 @@ public class OrdemServico {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Collection<Item> getItens() {
+	public List<Item> getItens() {
 		return itens;
 	}
-	public void setItens(Collection<Item> itens) {
+	public void setItens(List<Item> itens) {
 		this.itens = itens;
 	}
 	public Veiculo getVeiculo() {

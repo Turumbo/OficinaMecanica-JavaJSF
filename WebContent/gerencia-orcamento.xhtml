@@ -17,67 +17,141 @@
 		<h1><a href="cliente.xhtml" id="logo">Sistema de Notas Fiscais</a></h1>
 	</div>
 	
-	<div id="conteudo">
-		<h:form id="cadastro">
-			<fieldset>
-				<legend>Cadastro</legend>
-			
-				<h2><h:outputText value="Cadastro"/></h2>
+	<div id="conteudo">		
+		<h:form id="formPai" prependId="false">
+			<p:tabView id="idTabView" binding="#{ordemServicoMB.tabView}" dynamic="true" cache="false">
+				<p:tab title="Cadastro" id="tab1">					
+						<h:form id="cadastro" prependId="false">
+							<fieldset>
+								<legend>Dados do orçamento</legend>
+												
+								<h:outputLabel value="Veículo" for="veiculo"/>
+								<h:selectOneMenu id="veiculo" value="#{ordemServicoMB.ordemServico.veiculo.idVeiculo}">
+									<f:selectItems value="#{veiculoMB.veiculos}" var="veiculo" itemValue="#{veiculo.idVeiculo}" itemLabel="#{veiculo.modelo}"/>
+								</h:selectOneMenu>
 								
-				<h:outputLabel value="Veículo" for="veiculo"/>
-				<h:selectOneMenu id="veiculo" value="#{ordemServicoMB.ordemServico.veiculo.idVeiculo}">
-					<f:selectItems value="#{veiculoMB.veiculos}" var="veiculo" itemValue="#{veiculo.idVeiculo}" itemLabel="#{veiculo.modelo}"/>
-				</h:selectOneMenu>
+								<h:outputLabel value="Serviço" for="servico"/>
+								<p:inputTextarea id="servico" rows="6"  value="#{ordemServicoMB.ordemServico.servico}" />
+								
+								<h:outputLabel value="Valor" for="valor"/>
+								<p:inputText id="valor" value="#{ordemServicoMB.ordemServico.valor}"/>
+								
+								<h:outputLabel value="Data orçamento" for="dataOrcamento"/>
+								<p:inputText id="dataOrcamento" readonly="true" value="#{ordemServicoMB.ordemServico.dataOrcamento.timeInMillis}">
+				 					<f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy" />
+								</p:inputText>
+								
+								<h:outputLabel value="Status" for="status"/>
+								<p:inputText id="status" readonly="true" value="#{ordemServicoMB.ordemServico.status}"/>
+							</fieldset>
 				
-				<h:outputLabel value="Serviço" for="servico"/>
-				<p:inputTextarea id="servico" rows="6"  value="#{ordemServicoMB.ordemServico.servico}" />
+							<fieldset>
+								<legend>Dados das peças</legend>
+								
+								<h:outputLabel value="Peça" />
+								<h:selectOneMenu value="#{ordemServicoMB.idPeca}">
+									<f:selectItems value="#{pecaMB.pecas}" var="peca" itemValue="#{peca.idPeca}" itemLabel="#{peca.nome}"/>
+								</h:selectOneMenu>
+								
+								<h:outputLabel value="Quantidade" />
+								<h:inputText value="#{ordemServicoMB.item.quantidade}" />
+								
+								<h:commandButton action="#{ordemServicoMB.guardaPeca()}" value="Inserir peça" >
+									<f:ajax execute="@form" render="@form"/>
+								</h:commandButton>
+							</fieldset>
+							
+							<fieldset>
+								<legend>Lista de Peças</legend>
+								<p:dataTable value="#{ordemServicoMB.ordemServico.itens}" var="item" styleClass="dados" rowClasses="impar,par">
+									<p:column headerText="Nome">
+										#{item.peca.nome}
+									</p:column>
+									
+									<p:column headerText="Marca">
+										#{item.peca.marca}
+									</p:column>
+									
+									<p:column headerText="Quantidade">
+										 #{item.quantidade}
+									</p:column>	
+									
+									<p:column headerText="Ações" style="text-align: center;">
+										<h:commandLink action="#{ordemServicoMB.removeItem(item)}" value="Remover" styleClass="btn btn-danger">
+											<f:ajax render=":formPai:idTabView"/>
+										</h:commandLink>
+									</p:column>
+								</p:dataTable>
+							</fieldset>
+							<h:commandButton value="Gravar" action="#{ordemServicoMB.grava}">
+								<f:ajax render=":formPai:idTabView" execute="@form"/>
+							</h:commandButton>
+						</h:form>
+				</p:tab>
 				
-				<h:outputLabel value="Valor" for="valor"/>
-				<p:inputText id="valor" value="#{ordemServicoMB.ordemServico.valor}"/>
-				
-				<h:outputLabel value="Data orçamento" for="dataOrcamento"/>
-				<p:inputText id="dataOrcamento" readonly="true" value="#{ordemServicoMB.ordemServico.dataOrcamento.timeInMillis}">
- 					<f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy" />
-				</p:inputText>
-				
-				<h:outputLabel value="Status" for="status"/>
-				<p:inputText id="status" readonly="true" value="#{ordemServicoMB.ordemServico.status}"/>
-			</fieldset>
-
-			<fieldset>
-				<legend>Dados das peças</legend>
-				
-				<h:outputLabel value="Peça" />
-				<h:selectOneMenu value="#{ordemServicoMB.idPeca}">
-					<f:selectItems value="#{pecaMB.pecas}" var="peca" itemValue="#{peca.idPeca}" itemLabel="#{peca.nome}"/>
-				</h:selectOneMenu>
-				
-				<h:outputLabel value="Quantidade" />
-				<h:inputText value="#{ordemServicoMB.item.quantidade}" />
-				
-				<h:commandButton action="#{ordemServicoMB.guardaPeca()}" value="Inserir peça" >
-					<f:ajax execute="@form" render="@form"/>
-				</h:commandButton>
-			</fieldset>
-			
-			<fieldset>
-				<legend>Lista de Peças</legend>
-				<p:dataTable value="#{ordemServicoMB.ordemServico.itens}" var="item" styleClass="dados" rowClasses="impar,par">
-					<p:column headerText="Nome">
-						#{item.peca.nome}
-					</p:column>
-					
-					<p:column headerText="Marca">
-						#{item.peca.marca}"
-					</p:column>
-					
-					<p:column headerText="Quantidade">
-						 #{item.quantidade}
-					</p:column>
-					
-				</p:dataTable>
-			</fieldset>
-			<h:commandButton value="Gravar" action="#{ordemServicoMB.grava}" />
+				<p:tab title="Gerenciamento" id="tab2">
+					<h:form id="lista" prependId="false">
+						<p:dataTable value="#{ordemServicoMB.ordensServico}"  var="os" styleClass="dados" rowClasses="impar, par" >
+							<p:column headerText="Modelo">
+								#{os.veiculo.modelo}
+							</p:column>
+							
+							<p:column headerText="Data do Orçamento">
+								<h:outputText value="#{os.dataOrcamento.time}">
+									<f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							
+							<p:column headerText="Data do Serviço">								
+								<h:outputText value="#{os.dataServico != null ? os.dataServico.time : 'Não atendido'}">
+									<f:convertDateTime type="date" dateStyle="short" pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							
+							<p:column headerText="Valor">
+								R$ #{os.valor}
+							</p:column>
+							
+							<p:column headerText="Status">
+								#{os.status}
+							</p:column>
+							
+							<p:column headerText="Peças" style="text-align: center;">
+								
+    								<p:dataTable value="#{os.itens}"  var="item" styleClass="dados" rowClasses="impar, par" >           		 
+										<p:column headerText="Nome">
+											#{item.peca.nome}
+										</p:column>
+										
+										<p:column headerText="Fornecedor">
+											#{item.peca.fornecedor}
+										</p:column>
+										
+										<p:column headerText="Tipo">
+											#{item.peca.tipo}
+										</p:column>
+										
+										<p:column headerText="Marca">
+											#{item.peca.marca}
+										</p:column>
+										
+										<p:column headerText="Quantidade" >
+											#{item.quantidade}
+										</p:column>
+									</p:dataTable>
+							
+							
+							</p:column>
+							
+							<p:column headerText="Ações" style="text-align: center;">					
+								<h:commandLink action="#{ordemServicoMB.remove(os)}" value="Remover" styleClass="btn btn-danger">
+									<f:ajax render=":formPai:idTabView"/>
+								</h:commandLink>
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</p:tab>
+			</p:tabView>
 		</h:form>
 	</div>
 	

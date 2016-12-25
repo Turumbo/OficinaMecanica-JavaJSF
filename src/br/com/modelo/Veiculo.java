@@ -1,6 +1,5 @@
 package br.com.modelo;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,8 +24,8 @@ public class Veiculo {
 	/*@OneToOne(mappedBy="veiculo")
 	private OrdemServico ordemServico;*/
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private Cliente cliente;
+	@OneToOne/*(cascade = CascadeType.ALL)*/
+	private Cliente cliente = new Cliente();
 	
 	public Long getIdVeiculo() {
 		return idVeiculo;

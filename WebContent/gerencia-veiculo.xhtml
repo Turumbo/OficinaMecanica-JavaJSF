@@ -20,7 +20,7 @@
 	<div id="conteudo">
 		<h:form id="cadastro">
 			<fieldset>			
-				<h2><h:outputText value="#{empty veiculoMB.veiculo.placa ? 'Cadastro' : 'Alteração'}"/></h2>
+				<h2><h:outputText value="#{veiculoMB.veiculo.idVeiculo == null ? 'Cadastro' : 'Alteração'}"/></h2>
 				
 				<!-- Veiculo (idveiculo, marca, modelo, placa, ano_fabricacao, ano_modelo, #cliente) -->
 				
