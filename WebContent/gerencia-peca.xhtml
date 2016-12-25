@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet name="style.css" library="css"/>
+	<h:outputScript name="jsf.js" library="javax.faces" target="head"/>
+	<title>Gerencia Peça</title>
+</h:head>
+
+<h:body>
+	<div id="cabecalho">
+		<h1><a href="cliente.xhtml" id="logo">Oficina Mecânica</a></h1>
+	</div>
+	
+	<div id="conteudo">
+		<h:form id="cadastro">
+			<fieldset>
+				<legend>Peça</legend>
+			
+				<h2><h:outputText value="#{empty pecaMB.peca.nome ? 'Cadastro' : 'Alteração'}"/></h2>
+				
+				<!-- Peca (idpeca, nome, fornecedor, tipo, marca, quantidade) -->
+				
+				<h:outputLabel value="Nome" for="nome"/>
+				<h:inputText id="nome" value="#{pecaMB.peca.nome}"/>
+				<h:outputLabel value="Fornecedor" for="fornecedor"/>
+				<h:inputText id="fornecedor" value="#{pecaMB.peca.fornecedor}"/>
+				<h:outputLabel value="Tipo" for="tipo"/>
+				<h:inputText id="tipo" value="#{pecaMB.peca.tipo}"/>
+				<h:outputLabel value="Marca" for="marca"/>
+				<h:inputText id="marca" value="#{pecaMB.peca.marca}"/>
+				<h:outputLabel value="Quantidade" for="quantidade"/>
+				<h:inputText id="quantidade" value="#{pecaMB.peca.quantidade}"/>
+							
+				<div style="margin-top: 13px;">
+					<h:commandButton value="Gravar" action="#{pecaMB.grava}" style="float: left; margin-right: 10px;">	
+						<f:ajax execute="@form" render=":cadastro :lista"/>
+					</h:commandButton>	
+					
+					<h:commandButton value="Cancelar"  rendered="#{not empty pecaMB.peca.nome}" action="#{pecaMB.cancela}">
+						<f:ajax render=":cadastro"/>
+					</h:commandButton>
+				</div>
+			</fieldset>
+		</h:form>
+		
+		<h:form id="lista">
+			<p:dataTable value="#{pecaMB.pecas}"  var="peca" styleClass="dados" rowClasses="impar, par" rows="4" paginator="true">
+								 
+				<p:column headerText="Nome">
+					#{peca.nome}
+				</p:column>
+				
+				<p:column headerText="Fornecedor">
+					#{peca.fornecedor}
+				</p:column>
+				
+				<p:column headerText="Tipo">
+					#{peca.tipo}
+				</p:column>
+				
+				<p:column headerText="Marca">
+					#{peca.marca}
+				</p:column>
+				
+				<p:column headerText="Quantidade" >
+					#{peca.quantidade}
+				</p:column>
+				
+				<p:column headerText="Ações permitidas" style="text-align: center;">
+					<h:commandLink value="Alterar" styleClass="btn">
+						<f:setPropertyActionListener value="#{peca}" target="#{pecaMB.peca}" />
+						<f:ajax render=":cadastro"/>
+					</h:commandLink>
+					
+					<h:commandLink action="#{pecaMB.remove(peca)}" value="Remover" styleClass="btn btn-danger">
+						<f:ajax render=":lista"/>
+					</h:commandLink>
+				</p:column>
+	
+			</p:dataTable>
+		</h:form>
+		
+	</div>
+	
+	<div id="rodape">
+		<h:outputText value="Sistema de Notas Fiscais"/>
+	</div>
+
+</h:body>
+</html>

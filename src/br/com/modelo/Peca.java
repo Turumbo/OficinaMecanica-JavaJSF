@@ -18,7 +18,7 @@ public class Peca {
 	private String fornecedor;
 	private String tipo;
 	private String marca;
-	private int quantidade;
+	private Integer quantidade;
 	
 	public Long getIdPeca() {
 		return idPeca;
@@ -50,10 +50,10 @@ public class Peca {
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
-	public int getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 }
