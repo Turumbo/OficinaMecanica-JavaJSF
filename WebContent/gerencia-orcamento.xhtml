@@ -117,8 +117,9 @@
 							</p:column>
 							
 							<p:column headerText="Peças" style="text-align: center;">
-								
-    								<p:dataTable value="#{os.itens}"  var="item" styleClass="dados" rowClasses="impar, par" >           		 
+								<p:commandButton id="pecasBtn" value="Exibir peças" type="button" styleClass="btn"/>
+								<p:overlayPanel id="pecasPanel" for="pecasBtn" hideEffect="fade" dynamic="true" style="width:600px">
+							      	<p:dataTable value="#{os.itens}"  var="item" styleClass="dados" rowClasses="impar, par" >           		 
 										<p:column headerText="Nome">
 											#{item.peca.nome}
 										</p:column>
@@ -139,8 +140,7 @@
 											#{item.quantidade}
 										</p:column>
 									</p:dataTable>
-							
-							
+							    </p:overlayPanel>	
 							</p:column>
 							
 							<p:column headerText="Ações" style="text-align: center;">					
