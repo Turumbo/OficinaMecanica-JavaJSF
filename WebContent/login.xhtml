@@ -3,33 +3,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
-	
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<h:outputStylesheet name="style.css" library="css"/>
-	<h:outputScript name="jsf.js" library="javax.faces" target="head"/>
-	<title>Login</title>
-</h:head>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:body>
-	<div id="cabecalho">
-		<h1><a href="cliente.xhtml" id="logo">Sistema de Notas Fiscais</a></h1>
-	</div>
-
-	<div id="conteudo">
+<ui:composition template="WEB-INF/_template.xhtml">
+	<ui:define name="corpo">
 		<h:form id="formlogin">
 			<fieldset>
 				<legend>Login</legend>
-				
 				<p:outputLabel value="Login:" />
-				<h:inputText value="#{loginMB.usuario.usuario}"/>
+				<h:inputText value="#{loginMB.usuario.usuario}" />
 				<p:outputLabel value="Senha:" />
-				<h:inputSecret value="#{loginMB.usuario.senha}"/>
-				<p:commandButton value="Efetuar Login" action="#{loginMB.efetuaLogin}"/>
-				
+				<h:inputSecret value="#{loginMB.usuario.senha}" />
+				<p:commandButton value="Efetuar Login"
+					action="#{loginMB.efetuaLogin}" />
+
 			</fieldset>
 		</h:form>
-	</div>
-</h:body>
+	</ui:define>
+</ui:composition>
 </html>

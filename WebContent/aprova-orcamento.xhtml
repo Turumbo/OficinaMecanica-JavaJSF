@@ -3,21 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-	
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<h:outputStylesheet name="style.css" library="css"/>
-	<h:outputScript name="jsf.js" library="javax.faces" target="head"/>
-	<title>Aprova Orçamento</title>
-</h:head>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:body>
-	<div id="cabecalho">
-		<h1><a href="cliente.xhtml" id="logo">Sistema de Notas Fiscais</a></h1>
-	</div>
-	
-	<div id="conteudo">
+<ui:composition template="WEB-INF/_template.xhtml">
+	<ui:define name="corpo">
 		<h:form id="lista" prependId="false">
 			<fieldset style="padding-right: 10px;">
 				<legend>Lista de orçamentos</legend>
@@ -83,11 +73,6 @@
 				</p:dataTable>
 			</fieldset>
 		</h:form>
-	</div>
-	
-	<div id="rodape">
-		<h:outputText value="Sistema de Notas Fiscais"/>
-	</div>
-
-</h:body>
+	</ui:define>
+</ui:composition>
 </html>
