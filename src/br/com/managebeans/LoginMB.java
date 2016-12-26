@@ -21,8 +21,9 @@ public class LoginMB {
 
 	public String efetuaLogin() {
 		UsuarioDAO dao = new UsuarioDAO();
-		boolean loginValido = dao.existe(this.usuario);
-		if (loginValido) {
+		Usuario u = dao.existe(this.usuario);
+		if (u != null) {
+			this.usuario = u;
 			return "gerencia-orcamento?faces-redirect=true";
 		} else {
 			this.usuario = new Usuario();

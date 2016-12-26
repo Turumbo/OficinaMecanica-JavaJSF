@@ -10,7 +10,7 @@
 	<ui:define name="corpo">
 		<h:form id="formPai" prependId="false">
 			<p:tabView id="idTabView" binding="#{ordemServicoMB.tabView}" dynamic="true" cache="false">
-				<p:tab title="Cadastro" id="tab1">					
+				<p:tab title="Cadastro" id="tab1" rendered="#{loginMB.usuario.papel != 1}">					
 						<h:form id="cadastro" prependId="false">
 							<p:messages/>
 							<fieldset>
@@ -137,7 +137,7 @@
 							</p:column>
 							
 							<p:column headerText="Ações" style="text-align: center;">					
-								<h:commandLink action="#{ordemServicoMB.remove(os)}" value="Remover" styleClass="btn btn-danger">
+								<h:commandLink action="#{ordemServicoMB.remove(os)}" value="Remover" styleClass="btn btn-danger" rendered="#{loginMB.usuario.papel == 1}">
 									<f:ajax render=":formPai:idTabView"/>
 								</h:commandLink>
 							</p:column>

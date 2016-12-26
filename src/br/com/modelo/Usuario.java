@@ -16,7 +16,7 @@ public class Usuario {
 	private Long idUsuario;
 	private String usuario;
 	private String senha;
-	private String papel;
+	private Integer papel;
 	
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -50,11 +50,11 @@ public class Usuario {
 		this.usuario = usuario;
 	}
 
-	public String getPapel() {
+	public Integer getPapel() {
 		return papel;
 	}
 
-	public void setPapel(String papel) {
+	public void setPapel(Integer papel) {
 		this.papel = papel;
 	}
 }

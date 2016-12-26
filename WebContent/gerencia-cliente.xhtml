@@ -8,7 +8,7 @@
 
 <ui:composition template="WEB-INF/_template.xhtml">
 	<ui:define name="corpo">
-		<h:form id="cadastro">
+		<h:form id="cadastro" rendered="#{loginMB.usuario.papel == 2}">
 			<p:messages />
 			<fieldset>
 				<h2><h:outputText value="#{clienteMB.cliente.idCliente == null ? 'Cadastro' : 'Alteração'}"/></h2>
@@ -68,12 +68,12 @@
 				</p:column>
 				
 				<p:column headerText="Ações permitidas" style="text-align: center;">
-					<h:commandLink value="Alterar" styleClass="btn">
+					<h:commandLink value="Alterar" styleClass="btn" rendered="#{loginMB.usuario.papel == 2}">
 						<f:setPropertyActionListener value="#{cli}" target="#{clienteMB.cliente}" />
 						<f:ajax render=":cadastro"/>
 					</h:commandLink>
 					
-					<h:commandLink action="#{clienteMB.remove(cli)}" value="Remover" styleClass="btn btn-danger">
+					<h:commandLink action="#{clienteMB.remove(cli)}" value="Remover" styleClass="btn btn-danger" rendered="#{loginMB.usuario.papel == 1}">
 						<f:ajax render=":lista"/>
 					</h:commandLink>
 				</p:column>

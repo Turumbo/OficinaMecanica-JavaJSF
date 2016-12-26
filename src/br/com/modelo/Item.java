@@ -1,6 +1,5 @@
 package br.com.modelo;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,9 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Item {
@@ -21,8 +17,8 @@ public class Item {
 	private Long id;
 	private Integer quantidade;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@OnDelete(action=OnDeleteAction.CASCADE)
+	@OneToOne
+	//@OnDelete(action=OnDeleteAction.NO_ACTION)
 	private Peca peca;
 	
 	@ManyToOne

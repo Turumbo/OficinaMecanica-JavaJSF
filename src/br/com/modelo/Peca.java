@@ -7,12 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@OnDelete(action=OnDeleteAction.CASCADE)
 public class Peca {
 	/*Peca (idpeca, nome, fornecedor, tipo, marca, quantidade) */
 	

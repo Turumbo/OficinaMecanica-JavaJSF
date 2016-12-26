@@ -21,24 +21,24 @@
 			    <p:growl id="messages"/>
 			 
 			    <p:menubar>
-			        <p:submenu label="Clientes" icon="ui-icon-person">
+			        <p:submenu label="Clientes" icon="ui-icon-person" rendered="#{loginMB.usuario.papel != 3}">
 			            <p:menuitem icon="ui-icon-gear" value="Gerenciar clientes" url="gerencia-cliente.xhtml" />
 			        </p:submenu>
 			 
 			        <p:submenu label="Peças" icon="ui-icon-wrench">
-			            <p:menuitem icon="ui-icon-gear" value="Gerenciar peças" url="gerencia-peca.xhtml" />
-			            <p:menuitem icon="ui-icon-eject" value="Retirar peças" url="retira-peca.xhtml" />
+			            <p:menuitem icon="ui-icon-gear" value="Gerenciar peças" url="gerencia-peca.xhtml" rendered="#{loginMB.usuario.papel != 3}"/>
+			            <p:menuitem icon="ui-icon-eject" value="Retirar peças" url="retira-peca.xhtml" rendered="#{loginMB.usuario.papel == 3}"/>
 			        </p:submenu>
 			 
-			        <p:submenu label="Veículos" icon="ui-icon-cart">
+			        <p:submenu label="Veículos" icon="ui-icon-cart" rendered="#{loginMB.usuario.papel != 3}">
 			           <p:menuitem icon="ui-icon-gear" value="Gerenciar veículos" url="gerencia-veiculo.xhtml" />
 			        </p:submenu>
 			 
 			        <p:submenu label="Orçamento" icon="ui-icon-document">
 			            <p:menuitem icon="ui-icon-gear" value="Gerenciar orçamentos" url="gerencia-orcamento.xhtml" />
-			            <p:menuitem icon="ui-icon-check" value="Aprovar orçamentos" url="aprova-orcamento.xhtml" />
-			            <p:menuitem icon="ui-icon-check" value="Concluir orçamentos" url="conclui-orcamento.xhtml" />
-			            <p:menuitem icon="ui-icon-star" value="Registrar pagamento" url="registra-pagamento.xhtml" />
+			            <p:menuitem icon="ui-icon-check" value="Aprovar orçamentos" url="aprova-orcamento.xhtml" rendered="#{loginMB.usuario.papel == 2}"/>
+			            <p:menuitem icon="ui-icon-check" value="Concluir orçamentos" url="conclui-orcamento.xhtml" rendered="#{loginMB.usuario.papel == 1}"/>
+			            <p:menuitem icon="ui-icon-star" value="Registrar pagamento" url="registra-pagamento.xhtml" rendered="#{loginMB.usuario.papel == 1}"/>
 			        </p:submenu>
 			 		 
 			        <f:facet name="options">
