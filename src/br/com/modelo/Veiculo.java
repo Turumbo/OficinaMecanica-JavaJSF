@@ -6,6 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 public class Veiculo {
@@ -15,10 +19,22 @@ public class Veiculo {
 	@SequenceGenerator(name="veiculo_id", sequenceName="veiculo_seq", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="veiculo_id")
 	private Long idVeiculo;
+	
+	@NotEmpty(message="A marca deve ser fornecida")
 	private String marca;
+	
+	@NotEmpty(message="O modelo deve ser fornecido")
 	private String modelo;
+	
+	@NotEmpty(message="A placa deve ser fornecida")
 	private String placa;
+	
+	@NotNull(message="O ano de fabricação deve ser fornecido")
+	@Range(min=1950, message="O valor mínimo é 1950")
 	private Integer anoFabricacao;
+	
+	@NotNull(message="O ano do modelo deve ser fornecido")
+	@Range(min=1950, message="O valor mínimo é 1950")
 	private Integer anoModelo;
 	
 	/*@OneToOne(mappedBy="veiculo")

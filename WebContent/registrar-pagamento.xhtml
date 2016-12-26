@@ -9,7 +9,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<h:outputStylesheet name="style.css" library="css"/>
 	<h:outputScript name="jsf.js" library="javax.faces" target="head"/>
-	<title>Aprova Orçamento</title>
+	<title>Registra Pagamento</title>
 </h:head>
 
 <h:body>
@@ -17,12 +17,16 @@
 		<h1><a href="cliente.xhtml" id="logo">Sistema de Notas Fiscais</a></h1>
 	</div>
 	
-	<div id="conteudo">
+	<div id="conteudo">					
 		<h:form id="lista" prependId="false">
 			<fieldset style="padding-right: 10px;">
 				<legend>Lista de orçamentos</legend>
 				<p:dataTable value="#{ordemServicoMB.ordensServico}"  var="os" styleClass="dados" rowClasses="impar, par" paginator="true" rows="4">
-					<p:column headerText="Placa">
+					<p:column headerText="CPF" filterBy="#{os.veiculo.cliente.cpf}" filterMatchMode="contains">
+						#{os.veiculo.cliente.cpf}
+					</p:column>
+					
+					<p:column headerText="Placa" filterBy="#{os.veiculo.placa}" filterMatchMode="contains">
 						#{os.veiculo.placa}
 					</p:column>
 					
@@ -71,12 +75,13 @@
 								<p:column headerText="Quantidade" >
 									#{item.quantidade}
 								</p:column>
+								
 							</p:dataTable>
 					    </p:overlayPanel>	
 					</p:column>
-					
-					<p:column headerText="Ações" style="text-align: center;">								
-						<h:commandLink rendered="#{os.status == 'Criada'}" value="Aprovar orçamento" action="#{ordemServicoMB.aprova(os)}" styleClass="btn">                         
+			
+					<p:column headerText="Ações" style="text-align: center;">					
+						<h:commandLink action="#{ordemServicoMB.paga(os)}" value="Registrar pagamento" rendered="#{os.status != 'Paga'}" styleClass="btn">
 							<f:ajax render=":lista"/>
 						</h:commandLink>
 					</p:column>

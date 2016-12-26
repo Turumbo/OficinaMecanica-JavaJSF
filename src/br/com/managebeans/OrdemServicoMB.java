@@ -1,6 +1,7 @@
 package br.com.managebeans;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -83,14 +84,31 @@ public class OrdemServicoMB implements Serializable{
 	public void aprova(OrdemServico os){
 		DAO<OrdemServico> dao = new DAO<OrdemServico>(OrdemServico.class);
 		os.setStatus("Aprovada");
+		os.setDataServico(Calendar.getInstance());
 		dao.altera(os);
 		this.ordemServico = new OrdemServico();
 		this.ordensServico = dao.listaTodos();
 	}
 	
-	public void remove(OrdemServico p){
+	public void conclui(OrdemServico os){
 		DAO<OrdemServico> dao = new DAO<OrdemServico>(OrdemServico.class);
-		dao.remove(p);
+		os.setStatus("Concluída");
+		dao.altera(os);
+		this.ordemServico = new OrdemServico();
+		this.ordensServico = dao.listaTodos();
+	}
+	
+	public void remove(OrdemServico os){
+		DAO<OrdemServico> dao = new DAO<OrdemServico>(OrdemServico.class);
+		dao.remove(os);
+		this.ordemServico = new OrdemServico();
+		this.ordensServico = dao.listaTodos();
+	}
+	
+	public void paga(OrdemServico os){
+		DAO<OrdemServico> dao = new DAO<OrdemServico>(OrdemServico.class);
+		os.setStatus("Paga");
+		dao.altera(os);
 		this.ordemServico = new OrdemServico();
 		this.ordensServico = dao.listaTodos();
 	}

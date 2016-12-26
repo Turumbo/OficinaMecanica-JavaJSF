@@ -14,6 +14,7 @@ public class PecaMB{
 
 	private Peca peca = new Peca();
 	private List<Peca> pecas;
+	private Integer quantidade = new Integer(0);
 	
 	public Peca getPeca() {
 		return peca;
@@ -59,4 +60,34 @@ public class PecaMB{
 		this.pecas = pecas;
 	}
 	
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public void retirar(Peca p){
+		DAO<Peca> dao = new DAO<>(Peca.class);
+		int diferenca = p.getQuantidade() - quantidade;
+		
+		/* 
+		 * Verifica se a quantidade armazenada de peças é menor ou igual à quantidade solicitada.
+		 * Caso o usuário tenha solicitado mais peças que o disponível ou mesmo tenha solicitado todas as disponíveis,
+		 * todas as peças disponíveis são retiradas do estoque.
+		 */
+		if(diferenca < 0 || diferenca == 0){
+			dao.remove(p);
+		}else{ 
+			/*
+			 * Caso contrário, retira apenas a quantidade desejada e mantém o cadastro daquela peça, pois ainda
+			 * existem unidades no estoque daquele modelo.
+			 */
+			p.setQuantidade(diferenca);
+			dao.altera(p);
+		}
+		
+		this.quantidade = 0;
+	}
 }

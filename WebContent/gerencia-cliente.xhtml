@@ -19,6 +19,7 @@
 	
 	<div id="conteudo">
 		<h:form id="cadastro">
+			<p:messages />
 			<fieldset>
 				<h2><h:outputText value="#{clienteMB.cliente.idCliente == null ? 'Cadastro' : 'Alteração'}"/></h2>
 				
@@ -31,13 +32,13 @@
 				<p:inputMask id="telefone" value="#{clienteMB.cliente.telefone}" mask="(999) 9999-9999"/>
 				
 				<h:outputLabel value="CPF" for="cpf"/>
-				<p:inputMask id="cpf" value="#{clienteMB.cliente.cpf}" mask="999.999.999-99"/>
+				<p:inputMask id="cpf" value="#{clienteMB.cliente.cpf}" mask="999.999.999-99" validator="#{clienteMB.validarCpf}"/>
 				
 				<h:outputLabel value="Endereço" for="endereco"/>
 				<p:inputText id="endereco" value="#{clienteMB.cliente.endereco}"/>
 				
 				<h:outputLabel value="Email" for="email"/>
-				<p:inputText id="email" required="true" value="#{clienteMB.cliente.email}">
+				<p:inputText id="email" required="true" value="#{clienteMB.cliente.email}" validatorMessage="Um email válido deve ser fornecido" requiredMessage="Um email deve ser fornecido">
 					  <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 				</p:inputText>
 				

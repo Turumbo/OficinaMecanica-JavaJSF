@@ -22,12 +22,13 @@
 			<p:tabView id="idTabView" binding="#{ordemServicoMB.tabView}" dynamic="true" cache="false">
 				<p:tab title="Cadastro" id="tab1">					
 						<h:form id="cadastro" prependId="false">
+							<p:messages/>
 							<fieldset>
 								<legend>Dados do orçamento</legend>
 												
 								<h:outputLabel value="Veículo" for="veiculo"/>
 								<h:selectOneMenu id="veiculo" value="#{ordemServicoMB.ordemServico.veiculo.idVeiculo}">
-									<f:selectItems value="#{veiculoMB.veiculos}" var="veiculo" itemValue="#{veiculo.idVeiculo}" itemLabel="#{veiculo.modelo}"/>
+									<f:selectItems value="#{veiculoMB.veiculos}" var="veiculo" itemValue="#{veiculo.idVeiculo}" itemLabel="#{veiculo.modelo} - #{veiculo.placa}"/>
 								</h:selectOneMenu>
 								
 								<h:outputLabel value="Serviço" for="servico"/>
@@ -91,7 +92,7 @@
 				
 				<p:tab title="Gerenciamento" id="tab2">
 					<h:form id="lista" prependId="false">
-						<p:dataTable value="#{ordemServicoMB.ordensServico}"  var="os" styleClass="dados" rowClasses="impar, par" >
+						<p:dataTable value="#{ordemServicoMB.ordensServico}"  var="os" styleClass="dados" rowClasses="impar, par" paginator="true" rows="4">
 							<p:column headerText="Modelo">
 								#{os.veiculo.modelo}
 							</p:column>
@@ -109,7 +110,9 @@
 							</p:column>
 							
 							<p:column headerText="Valor">
-								R$ #{os.valor}
+								<h:outputText value="#{os.valor}" >
+									<f:convertNumber pattern="R$ #0.00"/>
+								</h:outputText>
 							</p:column>
 							
 							<p:column headerText="Status">

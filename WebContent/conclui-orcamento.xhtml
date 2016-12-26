@@ -9,7 +9,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<h:outputStylesheet name="style.css" library="css"/>
 	<h:outputScript name="jsf.js" library="javax.faces" target="head"/>
-	<title>Aprova Orçamento</title>
+	<title>Conclui Orçamento</title>
 </h:head>
 
 <h:body>
@@ -76,7 +76,7 @@
 					</p:column>
 					
 					<p:column headerText="Ações" style="text-align: center;">								
-						<h:commandLink rendered="#{os.status == 'Criada'}" value="Aprovar orçamento" action="#{ordemServicoMB.aprova(os)}" styleClass="btn">                         
+						<h:commandLink rendered="#{os.status == 'Aprovada'}" value="Concluir orçamento" action="#{ordemServicoMB.conclui(os)}" styleClass="btn">                         
 							<f:ajax render=":lista"/>
 						</h:commandLink>
 					</p:column>

@@ -15,6 +15,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 @Entity
 public class OrdemServico {
@@ -34,7 +38,10 @@ public class OrdemServico {
 	@Temporal(TemporalType.DATE)
 	private Calendar dataServico;
 	
+	@NotEmpty(message = "O serviço deve ser especificado")
 	private String servico;
+	
+	@NotNull(message = "O valor deve ser especificado")
 	private Float valor;
 	private String status = "Criada";
 	
