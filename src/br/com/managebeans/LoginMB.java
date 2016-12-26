@@ -30,6 +30,11 @@ public class LoginMB {
 		}
 	}
 	
+	public String efetuaLogout() {
+		this.usuario = new Usuario();		
+		return "login?faces-redirect=true";
+	}
+	
 	public boolean isUsuarioLogado() {
 		return usuario.getUsuario() != null;
 	}
