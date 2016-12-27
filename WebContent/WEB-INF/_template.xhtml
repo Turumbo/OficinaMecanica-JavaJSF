@@ -4,7 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets" >
 
 <h:head>
 	<title>Oficina Mecânica</title>
@@ -56,20 +56,22 @@
 		#logo{
 			position: relative;
 			top:5px;
-			left: 80%;
-			transform: translateY(-50%);
+			margin:0 auto;
+			margin-left:-30px;
 			border:none;
 			font-size:20px !important;
 		}
 		.ui-menu{
-			display:none;
+	
 			top:0;
 			position:fixed;
 			width:100%;
 		}
 		
 		html{
-			background-color: #212121 !important;
+			 background: linear-gradient(to bottom, #212121, #ffffff) ;
+			 background-size: 1920px 1080px;
+    		background-repeat: no-repeat;
 		}
 		
 		body{
@@ -78,14 +80,14 @@
 		}
 		#cabecalho{
 			margin-top:45px;
-			background-color: #212121 !important;
+			background: none;
 			text-align: center !important;
 			z-index:100;
 			text-align:center !important;
 		}
 		
 		#conteudo{
-			overflow:hidden;
+			
 			float:right;
 			border-radius: 10px;
 			z-index: 0;
@@ -111,44 +113,54 @@
 			color:white;
 		}
 		
-	
+		.content-erro{
+			font-size:40px;
+		}
+		
+		#carinha{
+			transform: rotate(90deg);
+		}
 	</style>
 </h:head>
 
 <f:view contentType="text/html; charset=ISO-8859-1">
-	<h:body>
+	<h:body >
 		<div id="cabecalho">
 			<a href="menu.xhtml" id="logo"  class="animated fadeInUp"><h1>Oficina Mecânica</h1></a>
 			<h:form  rendered="#{loginMB.usuarioLogado}">
 			    <p:growl id="messages"/>
+			    
+			     <p:menubar>
+			        <p:submenu label="Clientes" icon="ui-icon-person" rendered="#{loginMB.usuario.papel != 3}">
+			            <p:menuitem icon="ui-icon-gear" value="Gerenciar clientes" url="gerencia-cliente.xhtml" />
+			        </p:submenu>
+			 
+			        <p:submenu label="Peças" icon="ui-icon-wrench">
+			            <p:menuitem icon="ui-icon-gear" value="Gerenciar peças" url="gerencia-peca.xhtml" rendered="#{loginMB.usuario.papel != 3}"/>
+			            <p:menuitem icon="ui-icon-eject" value="Retirar peças" url="retira-peca.xhtml" rendered="#{loginMB.usuario.papel == 3}"/>
+			        </p:submenu>
+			 
+			        <p:submenu label="Veículos" icon="ui-icon-cart" rendered="#{loginMB.usuario.papel != 3}">
+			           <p:menuitem icon="ui-icon-gear" value="Gerenciar veículos" url="gerencia-veiculo.xhtml" />
+			        </p:submenu>
+			 
+			        <p:submenu label="Orçamento" icon="ui-icon-document">
+			            <p:menuitem icon="ui-icon-gear" value="Gerenciar orçamentos" url="gerencia-orcamento.xhtml" />
+			            <p:menuitem icon="ui-icon-check" value="Aprovar orçamentos" url="aprova-orcamento.xhtml" rendered="#{loginMB.usuario.papel == 2}"/>
+			            <p:menuitem icon="ui-icon-check" value="Concluir orçamentos" url="conclui-orcamento.xhtml" rendered="#{loginMB.usuario.papel == 1}"/>
+			            <p:menuitem icon="ui-icon-star" value="Registrar pagamento" url="registra-pagamento.xhtml" rendered="#{loginMB.usuario.papel == 1}"/>
+			        </p:submenu>
+			 		 
+			        <f:facet name="options">
+			           	<p:outputLabel value="Logado como: #{loginMB.usuario.nomeUsuario}"/>
+			            <p:commandButton value="Logout" icon="ui-icon-extlink" action="#{loginMB.efetuaLogout}"/>
+			        </f:facet>
+			    </p:menubar>
 
 			    
 			</h:form>
 		</div>
-		
-		<div id="sidebar" class="animated fadeInLeft">
-			<div id="box-itens">
-				
-				<a><div class="item-sidebar titulo-user" ><p:outputLabel value="Login: #{loginMB.usuario.nomeUsuario}"/></div></a>
-				<a href="gerencia-cliente.xhtml" rendered="#{loginMB.usuario.papel != 3}"><div class="item-sidebar"> Clientes</div></a>
-			
-				<a href="gerencia-peca.xhtml" rendered="#{loginMB.usuario.papel == 3}"><div class="item-sidebar">Gerenciar peças</div></a>
-				<a href="retira-peca.xhtml"  rendered="#{loginMB.usuario.papel == 3}"><div class="item-sidebar"> Retirar peça</div></a>
-			
-			
-				<a href="gerencia-veiculo.xhtml"><div class="item-sidebar"> Gerenciar veículos</div></a>
-				
-				
-				<a href="gerencia-orcamento.xhtml"><div class="item-sidebar"> Gereciar Orçamento</div></a>
-				<a href="aprova-orcamento.xhtml" rendered="#{loginMB.usuario.papel == 2}"><div class="item-sidebar"> Aprova Orcamento</div></a>
-				<a href="conclui-orcamento.xhtml" rendered="#{loginMB.usuario.papel == 1}"><div class="item-sidebar"> Conclui Orcamento</div></a>
-				<a href="registra-pagamento.xhtml" rendered="#{loginMB.usuario.papel == 1}"><div class="item-sidebar"> Registrar pagamentos</div></a>
-				<a ><div class="item-sidebar"> 
-			            <p:commandButton value="Logout" id="logout" icon="ui-icon-extlink" action="#{loginMB.efetuaLogout}"/>
-			     </div></a>
-			</div>
-			
-		</div>
+
 		
 		<div id="conteudo" class="animated fadeInUp">
 			<ui:insert name="corpo" />

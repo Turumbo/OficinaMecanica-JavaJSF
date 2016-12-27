@@ -83,11 +83,30 @@ public class OrdemServicoMB implements Serializable{
 	
 	public void aprova(OrdemServico os){
 		DAO<OrdemServico> dao = new DAO<OrdemServico>(OrdemServico.class);
+		this.debitarPecas(os);
 		os.setStatus("Aprovada");
 		os.setDataServico(Calendar.getInstance());
 		dao.altera(os);
 		this.ordemServico = new OrdemServico();
 		this.ordensServico = dao.listaTodos();
+	}
+	
+	private void debitarPecas(OrdemServico os){
+		DAO<Peca> dao = new DAO<>(Peca.class);
+		
+		for(Item aux : os.getItens()){
+			Peca p = aux.getPeca();
+			int quantidade = aux.getQuantidade();
+			
+			Peca pecaAAlterar = dao.buscaPorld(p.getIdPeca());
+			
+			if(quantidade <= pecaAAlterar.getQuantidade()){
+				pecaAAlterar.setQuantidade(pecaAAlterar.getQuantidade() - quantidade);
+				dao.altera(pecaAAlterar);
+			}else{
+				return;
+			}
+		}		
 	}
 	
 	public void conclui(OrdemServico os){

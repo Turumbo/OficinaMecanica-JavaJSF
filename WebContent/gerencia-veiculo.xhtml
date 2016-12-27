@@ -10,7 +10,8 @@
 	<ui:define name="corpo">
 		<h:form id="cadastro" rendered="#{loginMB.usuario.papel == 2}">
 			<p:messages/>
-			<fieldset>			
+			<fieldset>		
+				<legend>Veiculo</legend>	
 				<h2><h:outputText value="#{veiculoMB.veiculo.idVeiculo == null ? 'Cadastro' : 'Alteração'}"/></h2>
 				
 				<!-- Veiculo (idveiculo, marca, modelo, placa, ano_fabricacao, ano_modelo, #cliente) -->
