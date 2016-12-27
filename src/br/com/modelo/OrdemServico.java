@@ -17,6 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
@@ -46,6 +48,7 @@ public class OrdemServico {
 	private String status = "Criada";
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="ordemServico", fetch = FetchType.EAGER)
+	@OnDelete(action=OnDeleteAction.CASCADE)
 	private List<Item> itens = new ArrayList<>();
 	
 	public Long getIdOs() {

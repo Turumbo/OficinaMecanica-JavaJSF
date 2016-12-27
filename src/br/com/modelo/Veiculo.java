@@ -8,6 +8,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
@@ -41,6 +43,7 @@ public class Veiculo {
 	private OrdemServico ordemServico;*/
 	
 	@OneToOne/*(cascade = CascadeType.ALL)*/
+	@OnDelete(action=OnDeleteAction.CASCADE)
 	private Cliente cliente = new Cliente();
 	
 	public Long getIdVeiculo() {

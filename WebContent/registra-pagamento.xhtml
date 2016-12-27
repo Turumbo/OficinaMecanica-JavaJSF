@@ -71,7 +71,7 @@
 					</p:column>
 			
 					<p:column headerText="Ações" style="text-align: center;">					
-						<h:commandLink action="#{ordemServicoMB.paga(os)}" value="Registrar pagamento" rendered="#{os.status != 'Paga'}" styleClass="btn">
+						<h:commandLink action="#{ordemServicoMB.paga(os)}" value="Registrar pagamento" rendered="#{os.status == 'Concluida'}" styleClass="btn">
 							<f:ajax render=":lista"/>
 						</h:commandLink>
 					</p:column>

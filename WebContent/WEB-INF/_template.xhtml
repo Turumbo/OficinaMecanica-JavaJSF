@@ -5,55 +5,156 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets">
-	
+
 <h:head>
 	<title>Oficina Mecânica</title>
+	<h:outputStylesheet library="css" name="animate.css" />
 	<h:outputStylesheet library="css" name="style.css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<h:outputScript name="jsf.js" library="javax.faces" target="head"/>
+	<style>
+		#rodape{
+			background-color: #212121 !important;
+			border-top:1px solid #313131;
+			
+		}
+		#box-itens{
+			overflow:hidden;
+			position:relative;
+			top:95px;
+			color: #eee;
+			width:100%;
+			min-height:500px;
+		}
+		
+		#box-itens > a {
+		text-decoration: none;
+		color :#ccc;
+		}
+		
+		.item-sidebar{
+			background-color: #212121;
+			width:90%;
+			border-top:1px solid #777;
+			border-bottom:1px solid #777;
+			height: 20px;
+			padding: 15px;
+		}
+		
+		#sidebar{
+			background-color: #313131;
+			float:left;
+			border-left: white 1px solid;
+			border-right: #777 1px solid;
+			height: 100vh;
+			width: 200px;
+			position:fixed;
+			top:0;
+			z-index:200;
+		}
+		
+		#logo{
+			position: relative;
+			top:5px;
+			left: 80%;
+			transform: translateY(-50%);
+			border:none;
+			font-size:20px !important;
+		}
+		.ui-menu{
+			display:none;
+			top:0;
+			position:fixed;
+			width:100%;
+		}
+		
+		html{
+			background-color: #212121 !important;
+		}
+		
+		body{
+			min-width:1100px;
+			margin-right:210px;
+		}
+		#cabecalho{
+			margin-top:45px;
+			background-color: #212121 !important;
+			text-align: center !important;
+			z-index:100;
+			text-align:center !important;
+		}
+		
+		#conteudo{
+			overflow:hidden;
+			float:right;
+			border-radius: 10px;
+			z-index: 0;
+			padding:15px;
+			box-shadow: 0 2px 5px #eee;
+			width: calc(100% - 300px);
+		}
+		
+		fieldset{
+			width:98% !important;
+		}
+		
+		#logout{
+			position: relative;
+			left: 2px;
+			margin-left:0;
+		}
+		.titulo-user{
+		margin-letf:30px;
+		background-color:#313131;
+			border:none;
+			font-size:15px;
+			color:white;
+		}
+		
+	
+	</style>
 </h:head>
 
 <f:view contentType="text/html; charset=ISO-8859-1">
 	<h:body>
 		<div id="cabecalho">
-			<h1><a href="menu.xhtml" id="logo">Oficina Mecânica</a></h1>
-			<h:form  rendered="#{loginMB.usuarioLogado}">  
+			<a href="menu.xhtml" id="logo"  class="animated fadeInUp"><h1>Oficina Mecânica</h1></a>
+			<h:form  rendered="#{loginMB.usuarioLogado}">
 			    <p:growl id="messages"/>
-			 
-			    <p:menubar>
-			        <p:submenu label="Clientes" icon="ui-icon-person" rendered="#{loginMB.usuario.papel != 3}">
-			            <p:menuitem icon="ui-icon-gear" value="Gerenciar clientes" url="gerencia-cliente.xhtml" />
-			        </p:submenu>
-			 
-			        <p:submenu label="Peças" icon="ui-icon-wrench">
-			            <p:menuitem icon="ui-icon-gear" value="Gerenciar peças" url="gerencia-peca.xhtml" rendered="#{loginMB.usuario.papel != 3}"/>
-			            <p:menuitem icon="ui-icon-eject" value="Retirar peças" url="retira-peca.xhtml" rendered="#{loginMB.usuario.papel == 3}"/>
-			        </p:submenu>
-			 
-			        <p:submenu label="Veículos" icon="ui-icon-cart" rendered="#{loginMB.usuario.papel != 3}">
-			           <p:menuitem icon="ui-icon-gear" value="Gerenciar veículos" url="gerencia-veiculo.xhtml" />
-			        </p:submenu>
-			 
-			        <p:submenu label="Orçamento" icon="ui-icon-document">
-			            <p:menuitem icon="ui-icon-gear" value="Gerenciar orçamentos" url="gerencia-orcamento.xhtml" />
-			            <p:menuitem icon="ui-icon-check" value="Aprovar orçamentos" url="aprova-orcamento.xhtml" rendered="#{loginMB.usuario.papel == 2}"/>
-			            <p:menuitem icon="ui-icon-check" value="Concluir orçamentos" url="conclui-orcamento.xhtml" rendered="#{loginMB.usuario.papel == 1}"/>
-			            <p:menuitem icon="ui-icon-star" value="Registrar pagamento" url="registra-pagamento.xhtml" rendered="#{loginMB.usuario.papel == 1}"/>
-			        </p:submenu>
-			 		 
-			        <f:facet name="options">
-			           	<p:outputLabel value="Logado como: #{loginMB.usuario.nomeUsuario}"/>
-			            <p:commandButton value="Logout" icon="ui-icon-extlink" action="#{loginMB.efetuaLogout}"/>
-			        </f:facet>
-			    </p:menubar>
+
+			    
 			</h:form>
 		</div>
 		
-		<div id="conteudo">
-			<ui:insert name="corpo" />
+		<div id="sidebar" class="animated fadeInLeft">
+			<div id="box-itens">
+				
+				<a><div class="item-sidebar titulo-user" ><p:outputLabel value="Login: #{loginMB.usuario.nomeUsuario}"/></div></a>
+				<a href="gerencia-cliente.xhtml" rendered="#{loginMB.usuario.papel != 3}"><div class="item-sidebar"> Clientes</div></a>
+			
+				<a href="gerencia-peca.xhtml" rendered="#{loginMB.usuario.papel == 3}"><div class="item-sidebar">Gerenciar peças</div></a>
+				<a href="retira-peca.xhtml"  rendered="#{loginMB.usuario.papel == 3}"><div class="item-sidebar"> Retirar peça</div></a>
+			
+			
+				<a href="gerencia-veiculo.xhtml"><div class="item-sidebar"> Gerenciar veículos</div></a>
+				
+				
+				<a href="gerencia-orcamento.xhtml"><div class="item-sidebar"> Gereciar Orçamento</div></a>
+				<a href="aprova-orcamento.xhtml" rendered="#{loginMB.usuario.papel == 2}"><div class="item-sidebar"> Aprova Orcamento</div></a>
+				<a href="conclui-orcamento.xhtml" rendered="#{loginMB.usuario.papel == 1}"><div class="item-sidebar"> Conclui Orcamento</div></a>
+				<a href="registra-pagamento.xhtml" rendered="#{loginMB.usuario.papel == 1}"><div class="item-sidebar"> Registrar pagamentos</div></a>
+				<a ><div class="item-sidebar"> 
+			            <p:commandButton value="Logout" id="logout" icon="ui-icon-extlink" action="#{loginMB.efetuaLogout}"/>
+			     </div></a>
+			</div>
+			
 		</div>
 		
-		<div id="rodape">Mudar aqui</div>
+		<div id="conteudo" class="animated fadeInUp">
+			<ui:insert name="corpo" />
+		</div>
+
+		<div id="rodape">Trabalho OM, Luan Souza e José Ricardo</div>
 	</h:body>
 </f:view>
 </html>

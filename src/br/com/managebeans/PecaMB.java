@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.dao.DAO;
+import br.com.modelo.Item;
 import br.com.modelo.Peca;
 
 @ManagedBean
@@ -42,6 +43,9 @@ public class PecaMB{
 	}
 	
 	public void remove(Peca p){
+		
+		if(estaEmOrcamento(p)) return;
+		
 		DAO<Peca> dao = new DAO<Peca>(Peca.class);
 		dao.remove(p);
 		this.peca = new Peca();
@@ -89,5 +93,17 @@ public class PecaMB{
 		}
 		
 		this.quantidade = 0;
+	}
+	
+	private boolean estaEmOrcamento(Peca p) {
+		DAO<Item> dao = new DAO<>(Item.class);
+		List<Item> itensCadastrados = dao.listaTodos();
+		
+		for(Item aux : itensCadastrados){
+			if(aux.getPeca().getIdPeca() == p.getIdPeca()){
+				return true;
+			}
+		}
+		return false;
 	}
 }
